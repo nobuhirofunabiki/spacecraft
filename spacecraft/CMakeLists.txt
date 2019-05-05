@@ -19,12 +19,14 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}.cpp src/Spacecraft.cpp)
-add_dependencies(${PROJECT_NAME}_node
-    # ${${PROJECT_NAME}}_EXPORTED_TARGETS
-    ${catkin_EXPORTED_TARGETS}
-)
-# add_library(${PROJECT_NAME} src/Spacecraft.cpp)
+add_library(${PROJECT_NAME} src/Spacecraft.cpp)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}.cpp)
+# add_dependencies(${PROJECT_NAME}_node
+#     ${catkin_EXPORTED_TARGETS}
+# )
 target_link_libraries(${PROJECT_NAME}_node
     ${catkin_LIBRARIES}
+    ${PROJECT_NAME}
 )
